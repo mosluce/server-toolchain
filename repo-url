@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#從參數取得
+APPNAME=$1
+ 
+#要求輸入
+if [ -z $APPNAME ]; then
+    read -p "請輸入專案名稱：" APPNAME
+fi
+
+echo "git init"
+echo "git remote add origin ssh://azureuser@klcc-docker.cloudapp.net/repos/$APPNAME.git"
+echo "git add --all"
+echo "git commit -m init"
+echo "git push -u origin master"

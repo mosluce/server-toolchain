@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#從參數取得
+APPNAME=$1
+
+#要求輸入
+if [ -z $APPNAME ]; then
+    read -p "請輸入專案名稱：" APPNAME
+fi
+
+#檔案、資料夾路徑
+APP_DIR=$HOME/apps/$APPNAME
+REPO_DIR=$HOME/repos/$APPNAME.git
+GIT_HOOK_PATH=$REPO_DIR/hooks/post-receive
+NGINX_CFG_DIR=$HOME/configs/nginx/sites
+NGINX_CFG_PATH=$NGINX_CFG_DIR/$APPNAME.conf
+
+NGINX_CFG_TPL=$(dirname $0)/tpl/nginx/site.conf
+GIT_HOOK_TPL=$(dirname $0)/tpl/git/post-receive
+
+#建立資料夾
+mkdir -p $APP_DIR
+mkdir -p $REPO_DIR
+mkdir -p $NGINX_CFG_DIR
+
+#GIT
+cd $REPO_DIR
+git init --bare
+sed -e "s/{app}/$APPNAME/gi" $GIT_HOOK_TPL >> $GIT_HOOK_PATH
+chmod +x $GIT_HOOK_PATH
+
+#NGINX 
+sed -e "s/{app}/$APPNAME/gi" $NGINX_CFG_TPL >> $NGINX_CFG_PATH
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export GIT_WORK_TREE="$HOME/apps/{app}"
+export NODE_VERSION="v4.1.0"
+
+echo "--> Checking out..."
+git checkout -f
+
+echo "--> Selecting Node version $NODE_VERSION"
+. $HOME/.nvm/nvm.sh
+nvm use $NODE_VERSION
+
+echo "--> Installing libraries..."
+cd "$GIT_WORK_TREE"
+npm install
+
+

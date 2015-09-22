@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#從參數取得
+APPNAME=$1
+ 
+#要求輸入
+if [ -z $APPNAME ]; then
+    read -p "請輸入專案名稱：" APPNAME
+fi
+ 
+#檔案、資料夾路徑
+APP_DIR=$HOME/apps/$APPNAME
+REPO_DIR=$HOME/repos/$APPNAME.git
+NGINX_CFG_PATH=$HOME/configs/nginx/sites/$APPNAME.conf
+
+sudo rm -rf $APP_DIR
+sudo rm -rf $REPO_DIR
+sudo rm -rf $NGINX_CFG_PATH
