@@ -1,0 +1,16 @@
+#!/bin/bash
+
+SCRIPT_PATH=$(dirname $0)
+REPO_PATH=$HOME/repos
+SITE_TPL=$SCRIPT_PATH/tpl/nginx/site.conf
+
+DOMAIN=$1
+
+if [[ -z $DOMAIN ]]; then
+    read -p "Domain:" DOMAIN
+fi
+
+mkdir -p $REPO_PATH
+sudo ln -s $REPO_PATH /repos
+
+sed -e "s/{domain}/$DOMAIN/gi" $SITE_TPL > $SITE_TPL
