@@ -1,5 +1,5 @@
 server {
-    server_name {app}.klcc.com.tw;
+    server_name {app}.{domain};
     location / {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

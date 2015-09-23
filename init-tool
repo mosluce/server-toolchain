@@ -3,6 +3,7 @@
 SCRIPT_PATH=$(dirname $0)
 REPO_PATH=$HOME/repos
 SITE_TPL=$SCRIPT_PATH/tpl/nginx/site.conf
+SITE_EXP=$SCRIPT_PATH/tpl/nginx/site.conf.example
 
 DOMAIN=$1
 
@@ -13,4 +14,8 @@ fi
 mkdir -p $REPO_PATH
 sudo ln -s $REPO_PATH /repos
 
-sed -e "s/{domain}/$DOMAIN/gi" $SITE_TPL > $SITE_TPL
+sed -e "s/{domain}/$DOMAIN/gi" $SITE_EXP >> $SITE_TPL
+
+echo "export PATH=$SCRIPT_PATH:$PATH" >> ~/.bash_profile
+
+source ~/.bash_profile
